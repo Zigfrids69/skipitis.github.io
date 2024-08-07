@@ -18,20 +18,20 @@
             text-align: center;
         }
         #output {
-            margin-top: 20px;
+            margin-top: 40px;
             padding: 10px;
             border: 1px solid #2c218f;
             width: 300px;
             word-wrap: break-word;
         }
         button {
-            margin-top: 10px;
+            margin-top: 49px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Atrunu ģenerators</h1>
+        <h1 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 110px">Atrunu ģenerators</h1>
         <select id="userSelect">
             <option value="1">Pārgājiens</option>
             <option value="2">Dzeršana</option>
@@ -46,15 +46,15 @@
             <option value="11">"Tu esi trash CS2"</option>
             <!-- Add more options as needed -->
         </select>
-        <button onclick="processInput()">Ģenerēt atrunu</button>
+        <button style= "width: 250px; height: 50px; font-size: 14px" onclick="processInput()">Ģenerēt atrunu</button>
         <div id="output"></div>
-        <button onclick="copyOutput()">Kopēt atrunu</button>
+        <button style= "width: 250px; height: 50px; font-size: 14px" id="copyButton" onclick="copyOutput()">Kopēt atrunu</button>
     </div>
 
     <script>
         const responses = {
             1: ['man nav telts', 'es negribu vairs', 'es nezināju, ka uz pārgājienu vajadzēs naudu tērēt'],
-            2: ['man nav naudas', 'es gribu rīt, kaut gan rītdiena būs identiska šodienai', 'ārā pārāk karsts, esmu no sviesta', 'ārā pārāk auksts, es sasalšu'],
+            2: ['negribu', 'man nav naudas', 'es gribu rīt, kaut gan rītdiena būs identiska šodienai', 'ārā pārāk karsts, esmu no sviesta', 'ārā pārāk auksts, es sasalšu'],
             3: ['man nav Terraria, eventhough es viņu varu 4 minūšu laikā ielādēt', 'nē, es labāk grindošu Witcher 3', 'vairs jau nē, pārāk tālu tikuši esat. eventhough jūs mani saucāt pirms izveidojāt pasauli.'],
             4: ['man bremzes nestrādā', 'man vajag vismaz 1 nedēļu iepriekš morāli sagatavoties tam', 'es vairs negribu', 'nevaru, man fmovies jāgrindo', 'nevaru, man dators tajā dienā jāspēlē'],
             5: ['nevaru, mani datorspēles gaida mājās', 'nevaru, mani fmovies gaida mājās', 'tur ganjau nav uz manu izmēru'],
@@ -78,22 +78,20 @@
         }
 
         function processInput() {
-            const selectedOption = document.getElementById('userSelect').value;
-            let outputElement = document.getElementById('output');
+    const selectedOption = document.getElementById('userSelect').value;
+    let outputElement = document.getElementById('output');
+    const buttonTextElement = document.getElementById('copyButton');
 
     if (responses[selectedOption]) {
         if (currentIndex === 0) {
             currentResponses = [...responses[selectedOption]];
             shuffleArray(currentResponses);
         }
-        
-        // Log the current response to see its format
-        console.log("Current Response:", currentResponses[currentIndex]);
 
+        // Display the current response
         if (currentResponses[currentIndex].startsWith('<img')) {
             const imgElement = document.createElement('img');
             const imgSrc = currentResponses[currentIndex].replace(/<img /, '').replace(/>/, '');
-            console.log("Extracted Image Source:", imgSrc); // Log the extracted source
             imgElement.src = imgSrc;
             outputElement.innerHTML = ''; // Clear existing content
             outputElement.appendChild(imgElement);
@@ -102,11 +100,22 @@
             outputElement.textContent = currentResponses[currentIndex];
         }
 
+        // Update the button text based on the current response
+        if (currentResponses[currentIndex] === 'negribu') {
+            buttonTextElement.innerHTML = 'Kopēt melus';
+        } else {
+            buttonTextElement.innerHTML = 'Kopēt atrunu';
+        }
+
+        // Increment currentIndex after updating the button text
         currentIndex = (currentIndex + 1) % currentResponses.length;
     } else {
         outputElement.innerHTML = 'Invalid selection';
     }
 }
+
+
+
 
 
         function copyOutput() {
