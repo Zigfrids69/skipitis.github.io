@@ -5,36 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atrunu ģenerators</title>
     <style>
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #f70707, 0 0 10px #ff00ff, 0 0 20px #1cddff, 0 0 30px #ff00ff;
+            }
+            50% {
+                text-shadow: 0 0 10px #fff, 0 0 20px #4ae005, 0 0 40px #1cddff, 0 0 50px #ff7b00;
+            }
+            100% {
+                text-shadow: 0 0 5px #1900ff, 0 0 10px #ff00ff, 0 0 20px #1cddff, 0 0 30px #eeff00;
+            }
+        }
+
+        .glowing-text {
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            animation: glow 1.5s infinite alternate;
+        }
         body {
+            background-image: url('images/fons.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: "Comic Sans MS", cursive, sans-serif;
+            display: flex;
+            flex-direction: column;
+            place-items:center;
+            height: 110vh;
+            margin: 0;
+            color:blueviolet;
+        }
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
+            height: 100%;
+            width: 100%;
             text-align: center;
         }
         #output {
-            margin-top: 40px;
+            margin-top: 30px;
             padding: 10px;
-            border: 1px solid #2c218f;
-            width: 300px;
+            border: 3px solid #2c218f;
+            width: 400px;
             word-wrap: break-word;
+            text-align:center;
+            background-color: aliceblue;
         }
         button {
-            margin-top: 49px;
+            margin-top: 20px;
+            color:blueviolet;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 110px">Atrunu ģenerators</h1>
-        <select id="userSelect">
+        <h1 class="glowing-text" style="font-size:90px;">Atrunu ģenerators</h1>
+        <select id="userSelect" style="width: 200px; height: 40px; font-size: 20px;">
             <option value="1">Pārgājiens</option>
-            <option value="2">Dzeršana</option>
+            <option value="2">Dzert pārdaugavā</option>
             <option value="3">Terraria spēlēt</option>
             <option value="4">Velobrauciens</option>
             <option value="5">Aiziet uz humpalām</option>
@@ -44,11 +75,13 @@
             <option value="9">Rust spēlēt</option>
             <option value="10">Skaļāk runāt</option>
             <option value="11">"Tu esi trash CS2"</option>
-            <!-- Add more options as needed -->
+            <option value="12">Dzert centrā</option>
+            <option value="13">Magic pie Fila</option>
         </select>
-        <button style= "width: 250px; height: 50px; font-size: 14px" onclick="processInput()">Ģenerēt atrunu</button>
-        <div id="output"></div>
-        <button style= "width: 250px; height: 50px; font-size: 14px" id="copyButton" onclick="copyOutput()">Kopēt atrunu</button>
+
+        <button style= "width: 140px; height: 35px; font-size: 16px; font-family: 'Comic Sans MS', cursive, sans-serif" onclick="processInput()">Ģenerēt atrunu</button>
+        <div id="output" style="width: 200px; height: 50px; width: 440px; font-size: 20px;"></div>
+        <button style= "width: 120px; height: 35px; font-size: 16px; font-family: 'Comic Sans MS', cursive, sans-serif" id="copyButton" onclick="copyOutput()">Kopēt atrunu</button>
     </div>
 
     <script>
@@ -58,12 +91,14 @@
             3: ['man nav Terraria, eventhough es viņu varu 4 minūšu laikā ielādēt', 'nē, es labāk grindošu Witcher 3', 'vairs jau nē, pārāk tālu tikuši esat. eventhough jūs mani saucāt pirms izveidojāt pasauli.'],
             4: ['man bremzes nestrādā', 'man vajag vismaz 1 nedēļu iepriekš morāli sagatavoties tam', 'es vairs negribu', 'nevaru, man fmovies jāgrindo', 'nevaru, man dators tajā dienā jāspēlē'],
             5: ['nevaru, mani datorspēles gaida mājās', 'nevaru, mani fmovies gaida mājās', 'tur ganjau nav uz manu izmēru'],
-            6: ['negribu, tu griefosi', 'es pašlaik edgeoju, nevaru'],
+            6: ['negribu, tu griefosi', 'es pašlaik edgeoju, nevaru', 'nē, man fmovies jāgrindo', 'paga, man jāpabeidz gatavot savu 8 course meal', 'nē, es taisu savu 300. magic decku tappedoutā'],
             7: ['negribu, slinkums', 'nevaru, mani datorspēles gaida mājās', 'nevaru, mani fmovies gaida mājās', 'nē, būs garlaicīgi bez alkohola'],
             8: ['aizejam labāk nākamgad, jo nākamgad man 1000% negribēsies grindot fmovies un datorspēles', 'nē, tur ganjau pilns', 'nē, tur ganjau neviena nav', 'nē, skan cringe(man dators tā teica)'],
             9: ['man nav Rust, eventhough es viņu varu ielādēt 10 minūtēs', 'nē, tur pilnīgi visos serveros, to skaitā 1 minūti atpakaļ wipeotajos, ir fujaki ar op gear'],
             10: ['bruh, es jau runāju skaļi', 'uzgriez mani virs 200%', 'nevaru, mani sitīs, ja es runāšu'],
-            11: ['<img src="/images/shittits.png" alt="Test Image">']
+            11: ['<img src="/images/shittits.png" alt="zajebal, bilde neiet un es hujzin kapēc">'],
+            12: ['fuck centrs, negribu uz centru'],
+            13: ['suddenly esmu ar mieru uz centru braukt'],
             // Add more options and their responses as needed
         };
 
@@ -90,10 +125,13 @@
 
         // Display the current response
         if (currentResponses[currentIndex].startsWith('<img')) {
-            const imgElement = document.createElement('img');
-            const imgSrc = currentResponses[currentIndex].replace(/<img /, '').replace(/>/, '');
-            imgElement.src = imgSrc;
-            outputElement.innerHTML = ''; // Clear existing content
+            // Create a temporary element to parse the HTML string
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = currentResponses[currentIndex].trim();
+            const imgElement = tempDiv.querySelector('img');
+            
+            // Clear the output and append the image element
+            outputElement.innerHTML = ''; 
             outputElement.appendChild(imgElement);
         } else {
             outputElement.innerHTML = ''; // Clear existing content
@@ -113,6 +151,7 @@
         outputElement.innerHTML = 'Invalid selection';
     }
 }
+
 
 
 
