@@ -121,8 +121,9 @@
     
             var audio = document.getElementById('hoverSound');
             audio.currentTime=0;
+            audio.volume=0.1;
             audio.play().catch(function(error) {
-            console.log('Audio play failed:', error);
+
     });
             var gifDisplayArea = document.getElementById('gifDisplayArea');
             gifDisplayArea.style.display = 'block';
@@ -153,7 +154,7 @@ document.getElementById('hoverArea').addEventListener('mouseleave', function() {
             8: ['aizejam labāk nākamgad, jo nākamgad man 1000% negribēsies grindot fmovies un datorspēles', 'nē, tur ganjau pilns', 'nē, tur ganjau neviena nav', 'nē, skan cringe(man dators tā teica)'],
             9: ['man nav Rust, eventhough es viņu varu ielādēt 10 minūtēs', 'nē, tur pilnīgi visos serveros, to skaitā 1 minūti atpakaļ wipeotajos, ir fujaki ar op gear'],
             10: ['bruh, es jau runāju skaļi', 'uzgriez mani virs 200%', 'nevaru, mani sitīs, ja es runāšu'],
-            11: ['<img src="/images/shittits.png" alt="zajebal, bilde neiet un es hujzin kapēc">'],
+            11: ['<img src="images/shittits.png" alt="zajebal, bilde neiet un es hujzin kapēc">'],
             12: ['fuck centrs, negribu uz centru'],
             13: ['suddenly esmu ar mieru uz centru braukt'],
             // Add more options and their responses as needed
@@ -169,16 +170,31 @@ document.getElementById('hoverArea').addEventListener('mouseleave', function() {
             }
         }
 
-        function processInput() {
-    const selectedOption = document.getElementById('userSelect').value;
-    let outputElement = document.getElementById('output');
-    const buttonTextElement = document.getElementById('copyButton');
 
-    if (responses[selectedOption]) {
-        if (currentIndex === 0) {
-            currentResponses = [...responses[selectedOption]];
-            shuffleArray(currentResponses);
-        }
+        let selectedOption='';
+        function processInput() {
+            const selectedOption = document.getElementById('userSelect').value;
+            let outputElement = document.getElementById('output');
+            const buttonTextElement = document.getElementById('copyButton');
+
+            if (selectedOption=='12'){
+                document.body.style.backgroundImage = "url('images/shittits.png')";
+                document.body.style.backgroundSize = "cover"; // Ensure the image covers the background
+                document.body.style.backgroundPosition = "center"; // Center the image
+                document.body.style.backgroundRepeat = "no-repeat";
+                return;
+            }
+
+            document.body.style.backgroundImage = "url('images/fons.png')"; // Revert to original background
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "no-repeat";
+
+            if (responses[selectedOption]) {
+                if (currentIndex === 0) {
+                    currentResponses = [...responses[selectedOption]];
+                    shuffleArray(currentResponses);
+                }
 
         // Display the current response
         if (currentResponses[currentIndex].startsWith('<img')) {
