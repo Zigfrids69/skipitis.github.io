@@ -37,6 +37,27 @@
             margin: 0;
             color:blueviolet;
         }
+        #hoverArea{
+            position: absolute;
+            top: 60%; /* Adjust position as needed */
+            left: 90%;
+            width: 200px; /* Adjust size as needed */
+            height: 200px;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            cursor: pointer;
+        }
+        #gifDisplayArea {
+            position: absolute;
+            top: 70%; /* Adjust position as needed */
+            left: 90%;
+            transform: translate(-50%, -50%);
+            width: 300px; /* Adjust size as needed */
+            height: 200px;
+            display: none; /* Hide initially */
+            z-index: 1000;
+}
+
         .container {
             display: flex;
             flex-direction: column;
@@ -62,6 +83,12 @@
     </style>
 </head>
 <body>
+
+
+    <audio id="hoverSound" preload="auto">
+        <source src="images/sans.mp3" type="audio/mp3">
+    </audio>
+    
     <div class="container">
         <h1 class="glowing-text" style="font-size:90px;">Atrunu ģenerators</h1>
         <select id="userSelect" style="width: 200px; height: 40px; font-size: 20px;">
@@ -84,6 +111,35 @@
         <div id="output" style="width: 200px; height: 50px; width: 440px; font-size: 20px;"></div>
         <button style= "width: 120px; height: 35px; font-size: 16px; font-family: 'Comic Sans MS', cursive, sans-serif" id="copyButton" onclick="copyOutput()">Kopēt atrunu</button>
     </div>
+
+    <div id="hoverArea"></div>
+    <div id="gifDisplayArea"></div>
+
+    <script>
+        document.getElementById('hoverArea').addEventListener('mouseenter', function() {
+            document.body.style.backgroundImage = "url('images/pincis.gif')";
+    
+            var audio = document.getElementById('hoverSound');
+            audio.currentTime=0;
+            audio.play().catch(function(error) {
+            console.log('Audio play failed:', error);
+    });
+            var gifDisplayArea = document.getElementById('gifDisplayArea');
+            gifDisplayArea.style.display = 'block';
+            gifDisplayArea.innerHTML = '<img src="images/pincis2.gif" style="width: 90%; height: 60%;">';
+});
+
+document.getElementById('hoverArea').addEventListener('mouseleave', function() {
+    document.body.style.backgroundImage = "url('images/fons.png')";
+
+    var gifDisplayArea = document.getElementById('gifDisplayArea');
+    gifDisplayArea.style.display='none';
+});
+
+    </script>
+
+
+
 
     <script>
         const responses = {
